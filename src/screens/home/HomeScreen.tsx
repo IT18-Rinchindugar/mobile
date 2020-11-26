@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState, useRef, useLayoutEffect} from '
 import {useNetInfo} from '@react-native-community/netinfo';
 import {useNavigation} from '@react-navigation/native';
 import {BottomSheet, BottomSheetBehavior, Box, Header} from 'components';
-import {DevSettings, Linking, Animated, View} from 'react-native';
+import {DevSettings, Linking, Animated, StyleSheet} from 'react-native';
 import {TEST_MODE} from 'env';
 import {
   ExposureStatusType,
@@ -149,8 +149,9 @@ const ExpandedContent = (bottomSheetBehavior: BottomSheetBehavior) => {
 
 export const HomeScreen = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
-    if (__DEV__ && TEST_MODE) {
+    if (__DEV__) {
       DevSettings.addMenuItem('Show Demo Menu', () => {
         navigation.navigate('TestScreen');
       });
@@ -210,29 +211,7 @@ export const HomeScreen = () => {
         >
           <SafeAreaView>
             <Header />
-            <Animated.View
-              style={{
-                opacity: fadeAnim,
-                marginLeft: 16,
-                marginRight: 16,
-                marginTop: 20,
-                borderRadius: 15,
-                backgroundColor: 'white',
-                paddingLeft: 8,
-                paddingRight: 8,
-                paddingTop: 30,
-                paddingBottom: 30,
-                shadowColor: '#2567ED',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.1,
-                shadowRadius: 5,
-
-                elevation: 3,
-              }}
-            >
+            <Animated.View style={[styles.cardStyle, {opacity: fadeAnim}]}>
               <Content isBottomSheetExpanded={isBottomSheetExpanded} />
             </Animated.View>
           </SafeAreaView>
@@ -242,3 +221,26 @@ export const HomeScreen = () => {
     </NotificationPermissionStatusProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  cardStyle: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 20,
+    borderRadius: 15,
+    backgroundColor: 'white',
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 30,
+    paddingBottom: 30,
+    shadowColor: '#2567ED',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+
+    elevation: 3,
+  },
+});

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Box, Header, Icon, IconName} from 'components';
+import {Box, Icon, IconName} from 'components';
 
 interface BaseHomeViewProps {
   children?: React.ReactNode;
