@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState, useRef, useLayoutEffect} from 'react';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {useNavigation} from '@react-navigation/native';
-import {BottomSheet, BottomSheetBehavior, Box} from 'components';
-import {DevSettings, Linking, Animated} from 'react-native';
+import {BottomSheet, BottomSheetBehavior, Box, Header} from 'components';
+import {DevSettings, Linking, Animated, View} from 'react-native';
 import {TEST_MODE} from 'env';
 import {
   ExposureStatusType,
@@ -14,6 +14,7 @@ import {
 } from 'services/ExposureNotificationService';
 import {useStorage} from 'services/StorageService';
 import {usePrevious} from 'shared/usePrevious';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {useExposureNotificationSystemStatusAutomaticUpdater} from '../../services/ExposureNotificationService';
 
@@ -72,7 +73,7 @@ const Content = ({isBottomSheetExpanded}: ContentProps) => {
 
   switch (systemStatus) {
     case SystemStatus.Undefined:
-      return null;
+      return <UnknownProblemView isBottomSheetExpanded={isBottomSheetExpanded} />;
     case SystemStatus.Unauthorized:
       return <ExposureNotificationsUnauthorizedView isBottomSheetExpanded={isBottomSheetExpanded} />;
     case SystemStatus.Disabled:
@@ -196,7 +197,9 @@ export const HomeScreen = () => {
 
   return (
     <NotificationPermissionStatusProvider>
-      <Box flex={1} alignItems="center" backgroundColor="mainBackground">
+      <Box position="absolute" backgroundColor="newIce" height="100%" width="100%" />
+      <Box position="absolute" backgroundColor="newBlue" height={350} width="100%" />
+      <Box flex={1} alignItems="center" backgroundColor="transparent">
         <Box
           flex={1}
           paddingTop="m"
@@ -205,9 +208,34 @@ export const HomeScreen = () => {
           accessibilityElementsHidden={isBottomSheetExpanded}
           importantForAccessibility={isBottomSheetExpanded ? 'no-hide-descendants' : undefined}
         >
-          <Animated.View style={{opacity: fadeAnim}}>
-            <Content isBottomSheetExpanded={isBottomSheetExpanded} />
-          </Animated.View>
+          <SafeAreaView>
+            <Header />
+            <Animated.View
+              style={{
+                opacity: fadeAnim,
+                marginLeft: 16,
+                marginRight: 16,
+                marginTop: 20,
+                borderRadius: 15,
+                backgroundColor: 'white',
+                paddingLeft: 8,
+                paddingRight: 8,
+                paddingTop: 30,
+                paddingBottom: 30,
+                shadowColor: '#2567ED',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.1,
+                shadowRadius: 5,
+
+                elevation: 3,
+              }}
+            >
+              <Content isBottomSheetExpanded={isBottomSheetExpanded} />
+            </Animated.View>
+          </SafeAreaView>
         </Box>
         <BottomSheet ref={bottomSheetRef} expandedComponent={ExpandedContent} collapsedComponent={CollapsedContent} />
       </Box>

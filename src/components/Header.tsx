@@ -6,6 +6,7 @@ import {TEST_MODE} from 'env';
 
 import {Box} from './Box';
 import {Icon} from './Icon';
+import {Text} from './Text';
 
 export interface HeaderProps {
   isOverlay?: boolean;
@@ -14,8 +15,18 @@ export interface HeaderProps {
 const BasicHeader = () => {
   const i18n = useI18n();
   return (
-    <Box maxHeight={30} flexDirection="row" alignItems="center" justifyContent="center">
+    <Box
+      maxHeight={30}
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="flex-start"
+      marginLeft="m"
+      marginRight="m"
+    >
       {i18n.locale === 'mn' ? <Icon size={40} name="covid-alert-mn" /> : <Icon size={129} name="covid-alert-en" />}
+      <Text marginLeft="s" fontWeight="bold" color="bodyTextWhite">
+        Covid Tracing Mongolia
+      </Text>
     </Box>
   );
 };

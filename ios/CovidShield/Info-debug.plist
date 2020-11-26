@@ -48,6 +48,8 @@
 	<array>
 		<string>NotoSans-Bold.ttf</string>
 		<string>NotoSans-Regular.ttf</string>
+    <string>EuclidCircularA-Regular.ttf</string>
+    <string>EuclidCircularA-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

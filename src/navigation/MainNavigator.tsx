@@ -49,15 +49,15 @@ const withDarkNavNonModal = (Component: React.ElementType) => {
   return ComponentWithDarkNav;
 };
 
-// const withLightNav = (Component: React.ElementType) => {
-//   const ComponentWithLightNav = (props: any) => (
-//     <SafeAreaProvider>
-//       <StatusBar barStyle="light-content" />
-//       <Component {...props} />
-//     </SafeAreaProvider>
-//   );
-//   return ComponentWithLightNav;
-// };
+const withLightNav = (Component: React.ElementType) => {
+  const ComponentWithLightNav = (props: any) => (
+    <SafeAreaProvider>
+      <StatusBar barStyle="light-content" />
+      <Component {...props} />
+    </SafeAreaProvider>
+  );
+  return ComponentWithLightNav;
+};
 
 export interface MainStackParamList extends Record<string, object | undefined> {
   Home: undefined;
@@ -65,7 +65,7 @@ export interface MainStackParamList extends Record<string, object | undefined> {
   Tutorial: undefined;
 }
 const LandingScreenWithNavBar = withDarkNav(LandingScreen);
-const HomeScreenWithNavBar = withDarkNav(HomeScreen);
+const HomeScreenWithNavBar = withLightNav(HomeScreen);
 const TutorialScreenWithNavBar = withDarkNav(TutorialScreen);
 const Step0ScreenWithNavBar = withDarkNav(Step0Screen);
 const Step2ScreenWithNavBar = withDarkNav(Step2Screen);
